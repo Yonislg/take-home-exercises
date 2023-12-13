@@ -1,8 +1,8 @@
 # take-home-exercises
 
-Python + Numpy
+## Python + Numpy
 Please write not only an implementation, but also a basic test for each of these problems (with pytest)
-Feel free to read the numpy and python docs, blog posts etc, but please avoid ChatGPT and looking up solutions to these problems.
+Feel free to search the numpy and python docs, blog posts etc, but please avoid ChatGPT and looking up solutions to these problems.
 
 0. Given a two dimensional array, how to extract unique rows? 
 1. From a 10x3 matrix extract rows with unequal values (e.g. [2,2,3])
@@ -12,3 +12,7 @@ Feel free to read the numpy and python docs, blog posts etc, but please avoid Ch
 5. How to get the n largest values of an array
 6. Compute a matrix rank
 7. How to compute averages using a sliding window over an array?
+
+## Fortran
+0. Write a small program to create a random array of integers between 0 and 10000, of length 10000, and produce the (n=8) largest values
+1. From a 10x3 random matrix (numbers between 0 and 5) extract rows with unequal values (e.g. [2,2,3]) and print them to the screen
