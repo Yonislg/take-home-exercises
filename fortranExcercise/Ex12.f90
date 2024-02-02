@@ -11,6 +11,8 @@ function matrix_multiplication(a,b) result(c)
 
     allocate(c(m,p))
 
+    c = 0
+
     print *, c
 
     if (n==size(b,1)) then

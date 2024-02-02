@@ -14,6 +14,8 @@ contains
         class(quaternion), intent(in) :: Qin1,Qin2
         class(quaternion), allocatable :: Qout
 
+        allocate(Qout)
+
         Qout%a = Qin1%a + Qin2%a
         Qout%i = Qin1%i + Qin2%i
         Qout%j = Qin1%j + Qin2%j
@@ -25,6 +27,8 @@ contains
         class(quaternion), intent(in) :: Qin1,Qin2
         class(quaternion), allocatable :: Qout
 
+        allocate(Qout)
+
         Qout%a = Qin1%a * Qin2%a + Qin1%i * Qin2%i + Qin1%j * Qin2%j + Qin1%k * Qin2%k
         Qout%i = Qin1%a * Qin2%a - Qin1%i * Qin2%i - Qin1%j * Qin2%j + Qin1%k * Qin2%k
         Qout%j = Qin1%a * Qin2%a + Qin1%i * Qin2%i - Qin1%j * Qin2%j - Qin1%k * Qin2%k
@@ -35,6 +39,8 @@ contains
     function Qinvert(Qin) result(Qout)
         class(quaternion), intent(in) :: Qin
         class(quaternion), allocatable :: Qout
+
+        allocate(Qout)
 
         Qout%a =   Qin%a / (Qin%a**2 + Qin%i**2 + Qin%a**j + Qin%k**2)
         Qout%i = - Qin%i / (Qin%a**2 + Qin%i**2 + Qin%a**j + Qin%k**2)
