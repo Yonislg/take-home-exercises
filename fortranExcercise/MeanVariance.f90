@@ -1,4 +1,5 @@
 program main
+    implicit none
 
     integer :: N
     real, allocatable :: array1(:)

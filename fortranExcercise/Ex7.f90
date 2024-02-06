@@ -3,10 +3,11 @@
 ! Write a subroutine to compute the center of mass of these particles.
 
 program main
-
+    implicit none
     integer, parameter :: N = 2
     real, dimension(N,3) :: positions
     real, dimension(3) :: average_position
+    integer :: i
 
     call random_number(positions)
 

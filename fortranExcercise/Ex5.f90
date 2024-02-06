@@ -5,6 +5,8 @@
 
 program main
 
+    implicit none
+
     type position
         real :: x, y, z
     end type position

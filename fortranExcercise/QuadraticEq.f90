@@ -1,5 +1,6 @@
 program main
 
+    implicit none
     real :: a, b, c, x1, x2, D
 
     a = 1

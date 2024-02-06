@@ -1,5 +1,5 @@
 module qfuncs
-
+    implicit none
     public quaternion
 
     type quaternion
@@ -42,10 +42,14 @@ contains
 
         allocate(Qout)
 
-        Qout%a =   Qin%a / (Qin%a**2 + Qin%i**2 + Qin%a**j + Qin%k**2)
-        Qout%i = - Qin%i / (Qin%a**2 + Qin%i**2 + Qin%a**j + Qin%k**2)
-        Qout%j = - Qin%j / (Qin%a**2 + Qin%i**2 + Qin%a**j + Qin%k**2)
-        Qout%k = - Qin%k / (Qin%a**2 + Qin%i**2 + Qin%a**j + Qin%k**2)
+        Qout%a =   Qin%a / (Qin%a**2 + Qin%i**2 + Qin%a**2 + Qin%k**2)
+        Qout%i = - Qin%i / (Qin%a**2 + Qin%i**2 + Qin%a**2 + Qin%k**2)
+        Qout%j = - Qin%j / (Qin%a**2 + Qin%i**2 + Qin%a**2 + Qin%k**2)
+        Qout%k = - Qin%k / (Qin%a**2 + Qin%i**2 + Qin%a**2 + Qin%k**2)
+
+        ! Grappig, hier stond eerst perongeluk: Qout%a =   Qin%a / (Qin%a**2 + Qin%i**2 + Qin%a**j + Qin%k**2)
+        ! om een of ander reden leverde dat zonder implicit none geen foutmelding
+        ! het leverde geen rare resultaten op omdat Qin%a in het voorbeeld = 1 was. Het belang van meerdere voorbeelden testen
         
     end function
 
@@ -54,6 +58,8 @@ end module qfuncs
 program main
 
     use qfuncs
+
+    implicit none
 
     type(quaternion) :: A, B, C
 
@@ -67,6 +73,9 @@ program main
     print *,C
 
     C = Qinvert(A)
+    print *,C
+
+    C = Qinvert(B)
     print *,C
 
 

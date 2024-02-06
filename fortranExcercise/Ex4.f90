@@ -5,7 +5,9 @@
 
 program main
 
+    implicit none
     complex, dimension(-100:100) :: a
+    integer :: i
 
     a = [ (sqrt(cmplx(i)), i = -100, 100) ]
     print *, a 
