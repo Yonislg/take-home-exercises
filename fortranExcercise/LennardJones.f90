@@ -6,7 +6,7 @@ program main
     real, dimension(3,N) :: potential
     real, dimension(3,N) :: forces
     real, dimension(3,N) :: velocity
-    real :: Force, LenJ
+    !real :: Force, LenJ
     real, parameter :: timestep = 0.1
     integer :: i
 
@@ -27,13 +27,24 @@ program main
     end do
 
 contains
+    
+    function LenJ(r) result(V)
+        real, parameter :: sigma = 0.1
+        real, parameter :: epsilon = 0.1
+        real, intent(in) :: r
+        real :: V
+
+        V = 4*epsilon*((sigma/r)**12-(sigma/r)**6)
+
+    end function
 
     function Force(r) result(F)
         real, parameter :: sigma = 0.1
         real, parameter :: epsilon = 0.1
         real, intent(in) :: r
+        real :: F
 
-        F = -6*sigma*(2*(sigma/r)**11 - (sigma/r)**5)
+        F = -24*sigma*epsilon*(2*(sigma/r)**11 - (sigma/r)**5)
 
     end function
 
@@ -43,7 +54,7 @@ contains
         real, intent(in), dimension(3,N) :: positions
         real, intent(out), dimension(3,N) :: potential
         real, intent(out), dimension(3,N) :: forces
-        real :: Force, LenJ
+        !real :: Force, LenJ
         integer :: i,j,k
 
         do i = 1,N 
@@ -77,7 +88,8 @@ contains
         real, intent(inout), dimension(3,N) :: positions
         real, intent(inout), dimension(3,N) :: velocity
         real, intent(in), dimension(3,N) :: forces
-        real :: Force, LenJ, timestep
+        real, intent(in) :: timestep
+        !real :: Force, LenJ, timestep
         integer :: i,j
 
         do i = 1,N
@@ -99,24 +111,16 @@ contains
 
     end subroutine
 
-        function magnitude(p1) result(M)
-        real, dimension(3) :: p1        ! 3D variable
-        real :: M                           ! Magnitude
+    ! function magnitude(p1) result(M)
+    !     real, dimension(3) :: p1        ! 3D variable
+    !     real :: M                           ! Magnitude
 
-        p1 = p1**2
-        M = sum(p1)
-        M = sqrt(M)
+    !     p1 = p1**2
+    !     M = sum(p1)
+    !     M = sqrt(M)
 
-    end function
+    ! end function
 
-    function LenJ(r) result(V)
-        real, parameter :: sigma = 0.1
-        real, parameter :: epsilon = 0.1
-        real, intent(in) :: r
-
-        V = 4*epsilon*((sigma/r)**12-(sigma/r)**6)
-
-    end function
 
 
 

@@ -1,12 +1,22 @@
 module qfuncs
     implicit none
     public quaternion
+    public operator (*)
+    public operator (+)
 
     type quaternion
         real :: a, i, j, k
         contains
             procedure :: Qadd,Qmult,Qinvert
     end type quaternion
+
+    interface operator (*)
+        module procedure Qmult
+    end interface
+
+    interface operator (+)
+        module procedure Qadd
+    end interface
 
 contains
 
@@ -69,7 +79,13 @@ program main
     C = Qadd(A,B)
     print *,C
 
+    C = A+B
+    print *,C
+
     C = Qmult(A,B)
+    print *,C
+
+    C = A*B
     print *,C
 
     C = Qinvert(A)
