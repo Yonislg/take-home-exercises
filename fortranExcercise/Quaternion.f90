@@ -39,10 +39,10 @@ contains
 
         allocate(Qout)
 
-        Qout%a = Qin1%a * Qin2%a + Qin1%i * Qin2%i + Qin1%j * Qin2%j + Qin1%k * Qin2%k
-        Qout%i = Qin1%a * Qin2%a - Qin1%i * Qin2%i - Qin1%j * Qin2%j + Qin1%k * Qin2%k
-        Qout%j = Qin1%a * Qin2%a + Qin1%i * Qin2%i - Qin1%j * Qin2%j - Qin1%k * Qin2%k
-        Qout%k = Qin1%a * Qin2%a - Qin1%i * Qin2%i + Qin1%j * Qin2%j - Qin1%k * Qin2%k
+        Qout%a = Qin1%a * Qin2%a - Qin1%i * Qin2%i - Qin1%j * Qin2%j - Qin1%k * Qin2%k
+        Qout%i = Qin1%a * Qin2%i + Qin1%i * Qin2%a + Qin1%j * Qin2%k - Qin1%k * Qin2%j
+        Qout%j = Qin1%a * Qin2%j - Qin1%i * Qin2%k + Qin1%j * Qin2%a + Qin1%k * Qin2%i
+        Qout%k = Qin1%a * Qin2%k + Qin1%i * Qin2%j - Qin1%j * Qin2%i + Qin1%k * Qin2%a
         
     end function
 

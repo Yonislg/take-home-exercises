@@ -9,8 +9,8 @@ program converge_pi
    integer :: terms
    real(kind=knd), parameter :: pi_ref = 3.1415926535897932384626433832795028841971_knd
 
-   integer :: i
-   real(kind=knd) :: pi = 2.0, n
+   integer :: n
+   real(kind=knd) :: pi = 2.0
 
    print *, 'KIND      : ', knd
    print *, 'PRECISION : ', precision(pi)
@@ -19,10 +19,9 @@ program converge_pi
     print *, 'number of terms: '
     read *,terms
 
-   !$OMP PARALLEL DO REDUCTION(*:pi)
-   do i = 1, terms
-        n = real(i,kind = knd)
-        pi = pi *  (4*n*n) / (4*n*n - 1)
+   !$OMP PARALLEL DO DEFAULT(none) REDUCTION(*:pi)
+   do n = 1, terms
+        pi = pi *  real(4*n*n,kind = knd) / real(4*n*n - 1,kind = knd)
    end do
    !$OMP END PARALLEL DO
 

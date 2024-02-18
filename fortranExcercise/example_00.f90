@@ -5,7 +5,7 @@ program converge_pi
    implicit none
 
    integer, parameter :: knd = max(selected_real_kind(15), selected_real_kind(33))
-   integer, parameter :: n = 10 !huge(1)/1000
+   integer, parameter :: n = huge(1)/1000
    real(kind=knd), parameter :: pi_ref = 3.1415926535897932384626433832795028841971_knd
 
    integer :: i

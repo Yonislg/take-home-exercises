@@ -52,21 +52,23 @@ contains
 
         integer, intent(in) :: N
         real, intent(in), dimension(3,N) :: positions
-        real, intent(out), dimension(3,N) :: potential
+        real, intent(out), dimension(N) :: potential
         real, intent(out), dimension(3,N) :: forces
         !real :: Force, LenJ
         integer :: i,j,k
+        real, dimension(3) :: r_vec
+        real :: d
 
         do i = 1,N 
-            do j = 1,3
-                potential(j,i) = 0.
-                forces(j,i) = 0.
-                do k = 1,N
-                    if(k/=i) then
-                        potential(j,i) = potential(j,i) + LenJ(positions(j,i)-positions(j,k))
-                        forces(j,i) = forces(j,i) + Force(positions(j,i)-positions(j,k))
-                    end if
-                end do
+            do k = 1,N
+                if(k/=i) then
+                    r_vec = positions(:,i)-positions(:,k)
+                    d = magnitude(r_vec)
+                    potential(i) = potential(i) + LenJ(d)
+                    do j = 1,3                                    
+                        forces(j,i) = forces(j,i) + Force(d)/sqrt(d)*r_vec(j)
+                    end do
+                end if
             end do
         end do
 
@@ -111,15 +113,15 @@ contains
 
     end subroutine
 
-    ! function magnitude(p1) result(M)
-    !     real, dimension(3) :: p1        ! 3D variable
-    !     real :: M                           ! Magnitude
+    function magnitude(p1) result(M)
+        real, dimension(3) :: p1        ! 3D variable
+        real :: M                           ! Magnitude
 
-    !     p1 = p1**2
-    !     M = sum(p1)
-    !     M = sqrt(M)
+        p1 = p1**2
+        M = sum(p1)
+        M = sqrt(M)
 
-    ! end function
+    end function
 
 
 
