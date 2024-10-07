@@ -1,60 +1,16 @@
-program main
+module LennardJones
+    
     implicit none
 
-    integer, parameter :: N = 2
-    real, dimension(3,N) :: positions
-    real, dimension(N) :: potential
-    real, dimension(3,N) :: forces
-    real, dimension(3,N) :: velocity
-    !real :: Force, LenJ
-    real, parameter :: timestep = 0.1
-    integer :: i
-
-    call random_number(positions)
-    call random_number(velocity)
-    !print *,positions
-    do i = 1,N 
-        print "(3(f6.3, 2x))", positions(:,i)
-    end do
-
-    call state(positions,potential,forces,N)
-
-    do i = 1, 5
-        print *, "time is:"
-        print "(f4.2)", timestep*i
-        call advancing(positions,forces,N,velocity,timestep)
-        call state(positions,potential,forces,N)
-    end do
-
-contains
+contains 
     
-    function LenJ(r) result(V)
-        real, parameter :: sigma = 0.1
-        real, parameter :: epsilon = 0.1
-        real, intent(in) :: r
-        real :: V
-
-        V = 4*epsilon*((sigma/r)**12-(sigma/r)**6)
-
-    end function
-
-    function Force(r) result(F)
-        real, parameter :: sigma = 0.1
-        real, parameter :: epsilon = 0.1
-        real, intent(in) :: r
-        real :: F
-
-        F = -24*sigma*epsilon*(2*(sigma/r)**11 - (sigma/r)**5)
-
-    end function
-
-    subroutine state(positions,potential,forces,N)
+    subroutine state(positions,potential,forces,N, sigma, epsilon)
 
         integer, intent(in) :: N
+        real, intent(in) :: sigma, epsilon
         real, intent(in), dimension(3,N) :: positions
         real, intent(out), dimension(N) :: potential
         real, intent(out), dimension(3,N) :: forces
-        !real :: Force, LenJ
         integer :: i,j,k
         real, dimension(3) :: r_vec
         real :: d
@@ -64,9 +20,9 @@ contains
                 if(k/=i) then
                     r_vec = positions(:,i)-positions(:,k)
                     d = magnitude(r_vec)
-                    potential(i) = potential(i) + LenJ(d)
+                    potential(i) = potential(i) + LenJ(d, sigma, epsilon)
                     do j = 1,3                                    
-                        forces(j,i) = forces(j,i) + Force(d)/sqrt(d)*r_vec(j)
+                        forces(j,i) = forces(j,i) + Force(d, sigma, epsilon)/sqrt(d)*r_vec(j)
                     end do
                 end if
             end do
@@ -84,7 +40,7 @@ contains
 
     end subroutine
 
-    subroutine advancing(positions,forces,N,velocity,timestep)
+    subroutine advancing(positions,forces,velocity,timestep,N)
 
         integer, intent(in) :: N
         real, intent(inout), dimension(3,N) :: positions
@@ -112,6 +68,23 @@ contains
         end do
 
     end subroutine
+  
+    function LenJ(r, sigma, epsilon) result(V)
+        
+        real, intent(in) :: r, sigma, epsilon
+        real :: V
+
+        V = 4*epsilon*((sigma/r)**12-(sigma/r)**6)
+
+    end function
+
+    function Force(r, sigma, epsilon) result(F)
+        real, intent(in) :: r, sigma, epsilon
+        real :: F
+
+        F = -24*sigma*epsilon*(2*(sigma/r)**11 - (sigma/r)**5)
+
+    end function
 
     function magnitude(p1) result(M)
         real, dimension(3) :: p1        ! 3D variable
@@ -123,7 +96,4 @@ contains
 
     end function
 
-
-
-
-end program main
+end module LennardJones

@@ -82,6 +82,9 @@ def test_multiplication_commutativity2(Afixt3,Bfixt3,Ceq):
     assert C.j == D.j * Ceq[2]
     assert C.k == D.k * Ceq[3]
 
+def test_mult_Q1():
+    assert Quaternion(1,2,3,4)*Quaternion(2,3,4,5) == Quaternion(4,57,7887,9)    
+
 def test_scalar_add():
     A = Quaternion(1,1,1,1)
     B = Quaternion(2,1,1,1)

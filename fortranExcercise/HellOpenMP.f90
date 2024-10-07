@@ -1,5 +1,6 @@
 program hello
 
+implicit none
 use omp_lib
 
 integer :: num_threads, thread_id
@@ -10,11 +11,11 @@ print *, num_threads
 
 !$OMP PARALLEL PRIVATE (thread_id)
 
-    thread_id = omp_get_thread_num()
-    num_threads = omp_get_num_threads()
-    print *, thread_id
-    !print *, num_threads
-    print *, "Hello OpenMP"
+thread_id = omp_get_thread_num()
+num_threads = omp_get_num_threads()
+print *, thread_id
+!print *, num_threads
+print *, "Hello OpenMP"
 
 !$OMP END PARALLEL 
 
