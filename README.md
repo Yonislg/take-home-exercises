@@ -1,7 +1,10 @@
 # take-home-exercises
 
+My solutions to the following take home excersizes:
+
 ## Python + Numpy
-Please write not only an implementation, but also a basic test for each of these problems (with pytest)
+(These can be found under /project )
+Please write not only an implementation, but also a basic test for each of these problems (with pytest).
 Feel free to search the numpy and python docs, blog posts etc, but please avoid ChatGPT and looking up solutions to these problems.
 
 0. Given a two dimensional array, how to extract unique rows? 
@@ -16,3 +19,5 @@ Feel free to search the numpy and python docs, blog posts etc, but please avoid 
 ## Fortran
 0. Write a small program to create a random array of integers between 0 and 10000, of length 10000, and produce the (n=8) largest values
 1. From a 10x3 random matrix (numbers between 0 and 5) extract rows with unequal values (e.g. [2,2,3]) and print them to the screen
+
+Other Fortran excercizes were taken from the following [course](https://wvuhpc.github.io/Modern-Fortran/).
